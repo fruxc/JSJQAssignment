@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>JQuery Assignment</title>
+    <style>
+        /* CSS GOES HERE */
+
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button-effect {
+            background-color: white;
+            color: black;
+            border: 2px solid #555555;
+        }
+
+        .button-effect:hover {
+            background-color: #555555;
+            color: white;
+        }
+
+        body {
+            background: #FED9C9;
+        }
+
+
+        /* InfoPallete*/
+
+        /* .infoPallete {
+            transition: all 1s ease-in-out;
+        }
+
+        .infoPallete::before {
+            transform: scaleX(0);
+            transform-origin: bottom right;
+        }
+
+        .infoPallete:hover::before {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .infoPallete::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            inset: 0 0 0 0;
+            background: #FED9C9;
+            z-index: -1;
+            transition: transform 1s ease;
+        } */
+
+        #spinner {
+            visibility: hidden;
+            width: 80px;
+            height: 80px;
+
+            border: 2px solid #f3f3f3;
+            border-top: 3px solid #f25a41;
+            border-radius: 100%;
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #spinner.show {
+            visibility: visible;
+        }
+
+        .title {
+            color: #292826;
+            background: #8BBEE8FF;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 2s ease-out;
+        }
+
+        .title:hover {
+            background-color: #A8D5BAFF;
+            cursor: pointer;
+        }
+
+        .body {
+            background-color: #97f19e;
+            color: #fff;
+        }
+
+        .body:hover {
+            background-color: #f8b195;
+            color: #fff;
+        }
+
+        /* Animate */
+
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .infoPallete {
+            animation: slideInFromLeft 2s ease-out 0s 1;
+            padding: 30px;
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateY(100%);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="comments" style="border: 1px solid green;padding:1rem;margin-bottom: 0.5rem;">
+    </div>
+    <button class="button button-effect" id="load">Load Data</button>
+
+    <script>
+        //JQ LOGIC GOES HERE
+
+        function showSpinner() {
+            spinner.className = "show";
+            setTimeout(() => {
+                spinner.className = spinner.className.replace("show", "");
+            }, 2000);
+        }
+
+        $("#load").click(function () {
+            var spinner = document.createElement("spinner");
+            spinner.id = "spinner";
+            $('body').append(spinner);
+            showSpinner();
+            var t = 100;
+            $.getJSON("https://jsonplaceholder.typicode.com/posts", function (data) {
+                $('body').html("");
+                $.each(data, function (key, val) {
+                    var div = $(document.createElement('div'));
+                    div.attr('class', "infoPallete");
+                    var h3 = document.createElement("h3");
+                    h3.className = "title";
+                    h3.innerHTML = val.title;
+                    var p = document.createElement("p");
+                    p.className = "body";
+                    p.innerHTML = val.body;
+                    div.hide();
+                    div.append(h3);
+                    div.append(p);
+                    $('body').append(div);
+                    t += 1000;
+                    div.delay(t).fadeIn('fast');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
