@@ -1,11 +1,11 @@
 function sortData() {
     let data = document.getElementById("data").value;
-    data = JSON.parse(data);
-    sortedData = Object.keys(data).sort(function (a, b) {
+    data = JSON.parse(data);                                    //Parsing to JSON
+    sortedData = Object.keys(data).sort(function (a, b) {       //Sorting data in descending order
         return data[b] - data[a]
     })
 
-    var list = document.createElement("ol");
+    var list = document.createElement("ol");                    //Displaying data in form of ordered list
     for (var i in sortedData) {
         var elem = document.createElement("li");
         elem.innerHTML = sortedData[i];

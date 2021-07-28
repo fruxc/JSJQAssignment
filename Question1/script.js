@@ -1,12 +1,13 @@
 function extractSentence() {
     let paragraph = document.getElementById("paragraph").value;
     let sentences = paragraph.match(/(.*?(?:\.|\?|!))(?: |$)/g);
-    console.log(sentences);
+    // to filter sentences
     sentences.filter(words => {
         if (words.match(/\s/g).length <= 2) {
             sentences.splice(sentences.indexOf(words), 1);
         }
     })
+    //to mark important data as XXXXX if three of more numbers are there
     sentences.filter(words => {
         if (words.match(/[0-9]{3,}/g)) {
             let index = sentences.indexOf(words);
@@ -14,6 +15,7 @@ function extractSentence() {
             sentences[index] = words;
         }
     });
+    // display entire in form of list
     var list = document.createElement("ol");
     for (var i in sentences) {
         var elem = document.createElement("li");

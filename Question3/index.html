@@ -10,6 +10,7 @@
     <style>
         /* CSS GOES HERE */
 
+        /* Button Effects */
         .button {
             background-color: #4CAF50;
             /* Green */
@@ -36,6 +37,7 @@
             color: white;
         }
 
+        /* Body */
         body {
             background: #FED9C9;
         }
@@ -71,6 +73,8 @@
             transition: transform 1s ease;
         } */
 
+        /* Spinner  animation*/
+
         #spinner {
             visibility: hidden;
             width: 80px;
@@ -104,6 +108,7 @@
             visibility: visible;
         }
 
+        /* Title animation */
         .title {
             color: #292826;
             background: #8BBEE8FF;
@@ -118,6 +123,7 @@
             cursor: pointer;
         }
 
+        /* body class hover effect */
         .body {
             background-color: #97f19e;
             color: #fff;
@@ -128,17 +134,7 @@
             color: #fff;
         }
 
-        /* Animate */
-
-        @keyframes fadeInAnimation {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
+        /* infoPallete Animate */
 
         .infoPallete {
             animation: slideInFromLeft 2s ease-out 0s 1;
@@ -165,6 +161,7 @@
     <script>
         //JQ LOGIC GOES HERE
 
+        // Show Spinner
         function showSpinner() {
             spinner.className = "show";
             setTimeout(() => {
@@ -173,26 +170,34 @@
         }
 
         $("#load").click(function () {
+            //Creating spinner
             var spinner = document.createElement("spinner");
             spinner.id = "spinner";
             $('body').append(spinner);
             showSpinner();
             var t = 100;
             $.getJSON("https://jsonplaceholder.typicode.com/posts", function (data) {
+                //fetching data using getJSON via URL
                 $('body').html("");
                 $.each(data, function (key, val) {
+                    //Div element
                     var div = $(document.createElement('div'));
                     div.attr('class', "infoPallete");
+                    //H3 element
                     var h3 = document.createElement("h3");
                     h3.className = "title";
                     h3.innerHTML = val.title;
+                    //p element
                     var p = document.createElement("p");
                     p.className = "body";
                     p.innerHTML = val.body;
+                    //hide div element
                     div.hide();
+                    //appending both h3 and p elements
                     div.append(h3);
                     div.append(p);
                     $('body').append(div);
+                    //timer for the fade-in effect
                     t += 1000;
                     div.delay(t).fadeIn('fast');
                 });
